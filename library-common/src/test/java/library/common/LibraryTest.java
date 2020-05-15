@@ -12,5 +12,4 @@ class LibraryTest {
     void name(boolean status) {
         assertThat(status).isTrue();
     }
-
 }
