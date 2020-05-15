@@ -1,54 +1,22 @@
-buildscript {
-    ext {
-        springBootVersion = '2.2.7.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
-allprojects {
-    apply plugin: 'java'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
+subprojects {
+    apply plugin: "java"
+    // if both subprojects share some Spring related dependencies, apply the Spring `io.spring.dependency-management` here.
 
     group = 'com.example'
-    version = '0.0.1-SNAPSHOT'
+    version = '1.0'
+
     sourceCompatibility = 1.13
     targetCompatibility = 1.13
 
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-        compile group: 'com.h2database', name: 'h2', version: '1.4.200'
+        implementation "org.assertj:assertj-core:${assertj_version}"
     }
 
     test {
         useJUnitPlatform()
     }
 }
-
-subprojects {
-//    bootJar {
-//        enabled = false
-//    }
-//
-//    jar {
-//        enabled = true
-//    }
-}
-
-dependencies {
-    compile project(':product_service')
-}
-
-//jar {
-//    baseName = 'multiProject'
-//    version = '0.0.1-SNAPSHOT'
-//}
