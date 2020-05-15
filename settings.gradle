@@ -1,3 +1,4 @@
 rootProject.name = 'multiProject'
 
 include "product_service"
+include "library-common"

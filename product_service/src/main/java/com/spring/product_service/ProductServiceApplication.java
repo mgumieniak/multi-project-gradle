@@ -1,5 +1,6 @@
 package com.spring.product_service;
 
+import library.common.Library;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
