@@ -11,6 +11,11 @@ services:
       - MYSQL_PASSWORD=123
     volumes:
       - /data/mysql
+  config-server:
+    image: config-server:1
+    build:
+      context: ./config-service
+      dockerfile: Dockerfile
   product_service:
     image: product_service:1
     build:
@@ -20,6 +25,7 @@ services:
       - "8010:8000"
     depends_on:
       - mysqldb
+      - config-server
     volumes:
       - /data/product_service
 
