@@ -14,6 +14,8 @@ subprojects {
 
     dependencies {
         implementation "org.assertj:assertj-core:${assertj_version}"
+        compileOnly "org.projectlombok:lombok:${lombok_version}"
+        annotationProcessor "org.projectlombok:lombok:${lombok_version}"
     }
 
     test {
