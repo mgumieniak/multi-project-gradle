@@ -1,0 +1,4 @@
+{ 
+    "spring.datasource.username": "maciej",
+    "spring.datasource.password": "123"
+}

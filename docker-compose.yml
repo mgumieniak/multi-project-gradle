@@ -11,21 +11,60 @@ services:
       - MYSQL_PASSWORD=123
     volumes:
       - /data/mysql
+
+  vault:
+    image: vault:1.4.1
+    container_name: vault
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: 934f9eae-31ff-a8ef-e1ca-4bea9e07aa09
+
+  setup-vault:
+    image: vault:1.4.1
+    container_name: setup-vault
+    volumes:
+      - './config:/config'
+    environment:
+      VAULT_ADDR: 'http://vault:8200'
+    entrypoint: /bin/sh
+    command: >
+      -c "
+       while ! (nc -z vault 8200); do sleep 3; echo 'Waiting for vault to start-up...'; done;
+      /config/docker-vault-init.sh;
+      "
+    depends_on:
+      - vault
+
   config-server:
     image: config-server:1
-    build:
-      context: ./config-service
-      dockerfile: Dockerfile
-  product_service:
-    image: product_service:1
-    build:
-      context: ./product_service
-      dockerfile: Dockerfile
+    build: ./config-service
+    ports:
+      - "8888:8888"
+
+  service-registry:
+    image: service-registry
+    build: ./service-registry
+    ports:
+      - "8761:8761"
+
+  product-service:
+    image: product-service:1
+    build: ./product-service
     ports:
       - "8010:8000"
     depends_on:
       - mysqldb
       - config-server
-    volumes:
-      - /data/product_service
+      - setup-vault
+    links:
+      - config-server
+      - service-registry
+    entrypoint: /bin/sh
+    command: >
+      -c "
+      while ! (nc -z config-server 8888 && nc -z service-registry 8761); do sleep 5; echo 'Waiting for config-server and service-registry to start-up...'; done;
+      java -jar -Dspring.profiles.active=docker /app.jar
+      "
+
 

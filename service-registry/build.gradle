@@ -5,9 +5,8 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-	compile group: 'org.springframework.retry', name: 'spring-retry', version: '1.2.5.RELEASE'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.2.7.RELEASE'
-	implementation 'org.springframework.cloud:spring-cloud-config-server'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
