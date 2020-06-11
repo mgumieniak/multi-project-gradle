@@ -1,7 +1,8 @@
 rootProject.name = 'dockerCompose'
 
+include "product-service"
 include "library-common"
 include "config-service"
-include "product-service"
 include "service-registry"
 include "order-service"
+include "gateway"
