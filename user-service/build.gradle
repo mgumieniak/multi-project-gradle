@@ -39,7 +39,3 @@ dependencyManagement {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
-
-//tasks.withType(JavaCompile).each {
-//	it.options.compilerArgs.add('--enable-preview')
-//}
