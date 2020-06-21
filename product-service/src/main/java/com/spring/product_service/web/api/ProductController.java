@@ -1,13 +1,11 @@
 package com.spring.product_service.web.api;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.spring.product_service.clients.OrderClients;
 import com.spring.product_service.entities.Product;
 import com.spring.product_service.exceptions.ProductNotFoundException;
 import com.spring.product_service.services.ProductService;
 import library.common.Library;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -33,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping("")
-    @HystrixCommand(commandKey = "products",fallbackMethod = "allProductsDefault")
+//    @HystrixCommand(commandKey = "products",fallbackMethod = "allProductsDefault")
     public List<Product> allProducts(HttpServletRequest request) {
         log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         log.info(orderClients.getOrders());
@@ -44,10 +41,10 @@ public class ProductController {
         return productService.findAllProducts();
     }
 
-    public List<Product> allProductsDefault(HttpServletRequest request) {
-        log.error("Client wasn't available!");
-        return new ArrayList<>();
-    }
+//    public List<Product> allProductsDefault(HttpServletRequest request) {
+//        log.error("Client wasn't available!");
+//        return new ArrayList<>();
+//    }
 
     @GetMapping("/{code}")
     public Product productByCode(@PathVariable String code) {

@@ -15,7 +15,6 @@ public class ProductService {
         this.client = client;
     }
 
-
     public Mono<Product> getAllProducts(){
         Mono<ClientResponse> response = client.get()
                 .uri("lb://product-service" + "/api/products")

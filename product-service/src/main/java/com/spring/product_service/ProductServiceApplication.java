@@ -10,11 +10,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableCircuitBreaker
+@EnableFeignClients
+//@EnableCircuitBreaker
 @OpenAPIDefinition(
         info = @Info(title = "ProductServiceApplication")
 )
-@EnableFeignClients
 public class ProductServiceApplication {
 
     public static void main(String[] args) {
